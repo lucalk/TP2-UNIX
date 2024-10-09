@@ -4,7 +4,7 @@
 ### 1.1
 - sudo apt update
 - sudo systemctl restart ssh
-- Tester la connexion : ssh root@10.20.0.142
+- Tester la connexion : ssh root@10.20.0.142 ou ip a.
 
 Source : man sshd_config.
 
@@ -41,4 +41,11 @@ Il existe plusieurs options :
     |.  o             |
     |    .            |
     +----[SHA256]-----+
+  - En cas réel c'est une mauvaise idée de ne pas mettre de phrase de passe car la phrase de        passe renforce la sécurite de connexion au serveur. Et si une personne parvient a avoir la clé, il lui faudra cette phrase pour l'utiliser.
+
+
+### 1.3
+
+
+    
 
