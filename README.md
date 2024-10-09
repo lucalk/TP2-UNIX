@@ -46,10 +46,30 @@ Il existe plusieurs options :
   
 ### 1.3
 - Avoir la clé : cat ~/.ssh/id_rsa.pub
-  -AAAAB3NzaC1yc2EAAAADAQABAAABgQCZpqXUklKwzgIdjXknUGlHFEcteaPjXaLC/d1kDKnadUaTH1kwPezXOPNjKxJdSsyEisbssaVBQXQqEgHoYMVIyvVFTq/u7z4oe6Dep73JuzYOdv4eG1/CBVEM9567KD499SoxAoEkRtBhH/7uBf0k+7q/fNaj5gpT4E+b2hP8w+At+i/dfEZqloFJunGbFa4Z2ftNAq2lYn6d6VqXL4ZzQZ0/Ns6YNKsGHaIj72rH+y7PWGKfdfyh8UhsO0Fx8SSYKU4bKwOMBkH99uuAQbcS6DoxFg3xx3ixVzd0pqqaSxSGupyygxOLaKnCAECB2hkxtSI6HzcP8bIdhEZE6yyKukHnRqtUAyuwmMP04AA05FtZOHhjkyN7b62Yuim1NnsXx9IRMd4LbSEP9mZvVmiiQGqGo0FHLhxFgQya8mAnsOxKOepwF/vNBnuLfOAP3D2/zMIVaftlwFKUN/q10QvWjeFA5UdsTYHTxRlCr1WWkg/VGj0ugt2RlniB5KV3Ri8=
+  - AAAAB3NzaC1yc2EAAAADAQABAAABgQCZpqXUklKwzgIdjXknUGlHFEcteaPjXaLC/d1kDKnadUaTH1kwPezXOPNjKxJdSsyEisbssaVBQXQqEgHoYMVIyvVFTq/u7z4oe6Dep73JuzYOdv4eG1/CBVEM9567KD499SoxAoEkRtBhH/7uBf0k+7q/fNaj5gpT4E+b2hP8w+At+i/dfEZqloFJunGbFa4Z2ftNAq2lYn6d6VqXL4ZzQZ0/Ns6YNKsGHaIj72rH+y7PWGKfdfyh8UhsO0Fx8SSYKU4bKwOMBkH99uuAQbcS6DoxFg3xx3ixVzd0pqqaSxSGupyygxOLaKnCAECB2hkxtSI6HzcP8bIdhEZE6yyKukHnRqtUAyuwmMP04AA05FtZOHhjkyN7b62Yuim1NnsXx9IRMd4LbSEP9mZvVmiiQGqGo0FHLhxFgQya8mAnsOxKOepwF/vNBnuLfOAP3D2/zMIVaftlwFKUN/q10QvWjeFA5UdsTYHTxRlCr1WWkg/VGj0ugt2RlniB5KV3Ri8=
 - Création : cat>authorized_keys
 - Colle la clé puis ctrl+d
-- 
+  
+- Donner les droits au root : chmod 700 ~/.ssh/authorized_keys
+
+### 1.4
+- ssh -i id_rsa.pub root@10.20.0.142
+
+### 1.5
+- ssh-copy-id root@10.20.0.142 : Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'root@10.20.0.142'"
+and check to make sure that only the key(s) you wanted were added.
+
+
+nano /etc/ssh/sshd_config 
+-  #PasswordAuthentication yes =>  PasswordAuthentication no
+-  PermitRootLogin yes => PermitRootLogin prohibit-password
+
+
+
+
+
 
 
     
