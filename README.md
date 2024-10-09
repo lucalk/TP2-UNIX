@@ -25,4 +25,20 @@ Il existe plusieurs options :
 - Demande la phrase de passe.
 - Confirmation phrase de passe.
 - Resultat :
-  -
+  - Your identification has been saved in /root/.ssh/id_rsa
+    Your public key has been saved in /root/.ssh/id_rsa.pub
+    The key fingerprint is:
+    SHA256:hXbGIaWwIfJg4I2TkMs2RBsTqiadbU5H6ORm6IEu/ZQ root@serveur-correction
+    The key's randomart image is:
+    +---[RSA 3072]----+
+    |+B= . o ..o      |
+    |=oB+ o + = .     |
+    |+B .+ o + =      |
+    |o*.B . . +       |
+    |=.* O . S        |
+    |+o B o           |
+    |..o E            |
+    |.  o             |
+    |    .            |
+    +----[SHA256]-----+
+
