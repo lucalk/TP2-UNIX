@@ -2,6 +2,7 @@
 
 ## Source : 
 - https://www.hostinger.fr/tutoriels
+- https://www.delafond.org/traducmanfr/man/man5/sshd_config.5.html
 
 ## Exercice 1
 ### 1.1
