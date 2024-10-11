@@ -6,9 +6,14 @@
 
 ## Exercice 1
 ### 1.1
-- sudo apt update
-- sudo systemctl restart ssh
-- Tester la connexion : ssh root@10.20.0.142 ou ip a.
+Pour me connecter en root : 
+  Lancement de la VM : Vbox LicenceProPreInstalled-2024
+    - Connexion : login et password = root
+  Sur la VM : 
+    - sudo apt update
+    - sudo systemctl restart ssh
+   Sur la machine :  
+    - Tester la connexion : ssh root@10.20.0.142 ou la commande "ip a" pour voir l'ip.
 
 Source : man sshd_config.
 
