@@ -29,51 +29,124 @@ Il existe plusieurs options :
 
 ### 1.2
 
-- ssh-keygen : Permet de generer une clé.
-- Demande l'emplacement pour stocker la clé.
-- Demande la phrase de passe.
-- Confirmation phrase de passe.
-- Resultat :
-  - Your identification has been saved in /root/.ssh/id_rsa
+Pour generer une clé : 
+  - Commande "ssh-keygen" : Permet de generer une clé.
+  - Demande l'emplacement pour stocker la clé. => entrée
+  - Demande la phrase de passe. => entrée
+  - Confirmation phrase de passe. => entrée
+  - Resultat :
+    ```bash
+    Your identification has been saved in /root/.ssh/id_rsa
     Your public key has been saved in /root/.ssh/id_rsa.pub
     The key fingerprint is:
-    SHA256:hXbGIaWwIfJg4I2TkMs2RBsTqiadbU5H6ORm6IEu/ZQ root@serveur-correction
+    SHA256:hJtxmwzSiAZNIZCC23BKD4uw7xtSUgWcK1P4Dia2/ck root@serveur-correction
     The key's randomart image is:
     +---[RSA 3072]----+
-    |+B= . o ..o      |
-    |=oB+ o + = .     |
-    |+B .+ o + =      |
-    |o*.B . . +       |
-    |=.* O . S        |
-    |+o B o           |
-    |..o E            |
-    |.  o             |
-    |    .            |
+    |**++.            |
+    |B=*o o .         |
+    |=XB.o = o        |
+    |X*+. . O o       |
+    |=*+   o S        |
+    | +o.             |
+    |... o .          |
+    | ... E           |
+    |  ..             |
     +----[SHA256]-----+
-  - En cas réel c'est une mauvaise idée de ne pas mettre de phrase de passe car la phrase de        passe renforce la sécurite de connexion au serveur. Et si une personne parvient a avoir la clé, il lui faudra cette phrase pour l'utiliser.
+    ```
+  
+- En cas réel c'est une mauvaise idée de ne pas mettre de phrase de passe car elle renforce la sécurite de connexion au serveur. Et si une personne parvient a avoir la clé, il lui faudra cette phrase pour l'utiliser.
 
   
 ### 1.3
 - Avoir la clé : cat ~/.ssh/id_rsa.pub
-  - AAAAB3NzaC1yc2EAAAADAQABAAABgQCZpqXUklKwzgIdjXknUGlHFEcteaPjXaLC/d1kDKnadUaTH1kwPezXOPNjKxJdSsyEisbssaVBQXQqEgHoYMVIyvVFTq/u7z4oe6Dep73JuzYOdv4eG1/CBVEM9567KD499SoxAoEkRtBhH/7uBf0k+7q/fNaj5gpT4E+b2hP8w+At+i/dfEZqloFJunGbFa4Z2ftNAq2lYn6d6VqXL4ZzQZ0/Ns6YNKsGHaIj72rH+y7PWGKfdfyh8UhsO0Fx8SSYKU4bKwOMBkH99uuAQbcS6DoxFg3xx3ixVzd0pqqaSxSGupyygxOLaKnCAECB2hkxtSI6HzcP8bIdhEZE6yyKukHnRqtUAyuwmMP04AA05FtZOHhjkyN7b62Yuim1NnsXx9IRMd4LbSEP9mZvVmiiQGqGo0FHLhxFgQya8mAnsOxKOepwF/vNBnuLfOAP3D2/zMIVaftlwFKUN/q10QvWjeFA5UdsTYHTxRlCr1WWkg/VGj0ugt2RlniB5KV3Ri8=
-- Création : cat>authorized_keys
-- Colle la clé puis ctrl+d
   
+  ```bash
+  AAAAB3NzaC1yc2EAAAADAQABAAABgQCy/kMlcFKp23zkr3zHJHUheryyZXHQk6uIHONRqDRMKNQVysN584LExtLSIYWy1RfHQnalyDWDsqGGiZs6kGcsu3lsjLTZp3862Q5GjexUl+1WMMFYXBNaMnDNapKYmRMVWwETI8Me8cgP5ac5146v5OeLuYnRA2MxL2W1Mej4lXd7wAWbayr7JY4O8NEoahoesBbvkf+RqqvCeHaqgOuWfXolINgyBsDwcrM01Cc3YzA8RE932MmV+pepjpksG5UrHJHCI6ScGwgVd3yNSHaQ86D2S1UOSQMtV9BlI4GSjrIoMFn/bdq3WJzGrX1HGzPcldilbNr7uRpo9IfnZUpzA1Frtt7MYdujJhMwlJLsfmOimXNHHMl019HGqiqPmYQ8kX4mNqpsJu5xlnhh+AlkMUPE8d779wsi4dUXbDnBSsa/VX1KxZ3nOCn9LSB5WUuyYPMxymSSJY2bMnn98YxI8YUMzqudr1lLR4vb9DDiKqKdRpnTVlukWIUYjtCXwIk=
+  ```
+  
+- Création du fichier dans ".ssh" : cat>authorized_keys
+- Colle la clé puis ctrl+d
 - Donner les droits au root : chmod 700 ~/.ssh/authorized_keys
+- Déconnexion : exit
 
 ### 1.4
-- ssh -i id_rsa.pub root@10.20.0.142
+Connexion : ssh -i id_rsa.pub root@10.20.0.142 œ
 
 ### 1.5
-- ssh-copy-id root@10.20.0.142 : Number of key(s) added: 1
+Revoir dans tléchargement ce qui était là !!!!
 
-Now try logging into the machine, with:   "ssh 'root@10.20.0.142'"
-and check to make sure that only the key(s) you wanted were added.
+La procédure pour sécuriser le machine via ssh pour root par clef seulement : 
+  - nano /etc/ssh/sshd_config
+  - #PasswordAuthentication yes =>  PasswordAuthentication no
+  - #PubkeyAuthentication yes => PubkeyAuthentication yes
+  - PermitRootLogin yes => PermitRootLogin prohibit-password
+
+## Exercice 2
+
+### 2.1
+- TIME : correspond au temps utilisé par le processus
+- Le processeur ayant le plus été utilisé sur la machine est :
+    root        1104  200  0.0 R+   15:18:07 00:00:00 ps -eo user,pid,%cpu,%me
+- Le premier processus lancé après le démarrage de la machine est :
+    root           1  0.0  0.1 Ss   14:14:08 00:00:01 /sbin/init
+- Le serveur tourne depuis 1h29min08sec
+- Pour établir le nombre de processus créés depuis le démarrage est de approximativement : 1140 :
+  - ```bash
+    root        1140  100  0.0 R+   15:54:01 00:00:00 ps -eo user,pid,%cpu,%mem,stat,start,time,command
+    ```
+### 2.2
+- L'option permettant d'afficher le PPID d'un processus est ppid : ps -eo pid,ppid ...
+- La commande pour afficher dans lo'rdre les PPID est
+  ```bash
+    root@serveur-correction:~# ps -eo pid,ppid --sort=ppid
+        PID    PPID
+      1       0
+      2       0
+    324       1
+    355       1
+    589       1
+    591       1
+    592       1
+    594       1
+  ```
+
+### 2.3
+apt  search pstree
+apt search psmisc
+apt install psmisc
+```bash
+  root@serveur-correction:~# pstree
+systemd─┬─cron
+        ├─dbus-daemon
+        ├─dhclient
+        ├─login───bash
+        ├─sshd───sshd───bash───pstree
+        ├─systemd───(sd-pam)
+        ├─systemd-journal
+        ├─systemd-logind
+        ├─systemd-timesyn───{systemd-timesyn}
+        └─systemd-udevd
+```
+
+- D'apès la connaissance c'est MAJ + m
+```
+    PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.                          
+    324 root      20   0   32948   8528   7436 S   0,0   0,1   0:00.32 systemd-journal               
+    594 root      20   0   25404   7792   6772 S   0,0   0,1   0:00.19 systemd-logind                
+    637 systemd+  20   0   90064   6716   5840 S   0,0   0,1   0:00.17 systemd-timesyn               
+    355 root      20   0   25864   6308   4696 S   0,0   0,1   0:00.20 systemd-udevd
+```
+- Le plus gourmand est :
+```bash
+  324 root      20   0   32948   8528   7436 S   0,0   0,1   0:00.32 systemd-journal               
+```
+Il correspond au systeme de journalisation
 
 
-nano /etc/ssh/sshd_config 
--  #PasswordAuthentication yes =>  PasswordAuthentication no
--  PermitRootLogin yes => PermitRootLogin prohibit-password
+
+
+
+
 
 
 
