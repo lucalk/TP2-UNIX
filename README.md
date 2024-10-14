@@ -236,33 +236,7 @@ Changement de fichier date-toto.sh :
   toto 11:29:51
   toto 11:29:52
   toto 11:29:54
-  ^ZLP LPW - Syst`emes/Services - Unix TP 02 : Services, processus signaux M. Le Cocq . 2024
-3 Exercice 2 : Arrˆet d’un processus
-Ecrivez deux script shell contenant des boucles affichant la date.
-fichier date.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’date ’; date +%T; done
-fichier date-toto.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
-- Lancer le 1er scripts. Le mettre en arri`ere plan (CTRL-Z).
-- Lancer le 2eme scripts. Le mettre en arri`ere plan (CTRL-Z).
-- A l’aide des commandes jobs fg et CTRL-C, arrˆeter les 2 horloges.
-- Mˆeme question en utilisant les commandes ps et kill (avec un PID).
-- Expliquer les scripts `a l’aide du man.
-4 Exercice 3 : les tubes
-Quelle est la diff´erence entre tee et cat ?
-Que font les commandes suivantes :
-$ ls | cat
-$ ls -l | cat > liste
-$ ls -l | tee liste
-$ ls -l | tee liste | wc -l
-5 Journal syst`eme rsyslog
-- Le service rsyslog est-il lanc´e sur votre syst`eme ? Quel est le PID du d´emon ?
-- Le principal fichier de configuration de rsyslog est /etc/rsyslog.conf. Dans quel fichier
-rsyslog ´ecrit-il les messages issus des services standards ? Et la plupart des autres messages ?
-V´erifier le contenu de ces fichiers.
-- A quoi sert le se
+  ^Z
   [2]+  Stoppé                 ./date-toto.sh
   ```
 - ```bash
@@ -289,59 +263,7 @@ V´erifier le contenu de ces fichiers.
     653 pts/0    00:00:00 bash
     923 pts/0    00:00:00 date.sh
     924 pts/0    00:00:00 sleep
-    931 pts/0    00:00:00 date.shLP LPW - Syst`emes/Services - Unix TP 02 : Services, processus signaux M. Le Cocq . 2024
-3 Exercice 2 : Arrˆet d’un processus
-Ecrivez deux script shell contenant des boucles affichant la date.
-fichier date.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’date ’; date +%T; done
-fichier date-toto.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
-- Lancer le 1er scripts. Le mettre en arri`ere plan (CTRL-Z).
-- Lancer le 2eme scripts. Le mettre en arri`ere plan (CTRL-Z).
-- A l’aide des commandes jobs fg et CTRL-C, arrˆeter les 2 horloges.
-- Mˆeme question en utilisant les commandes ps et kill (avec un PID).
-- Expliquer les scripts `a l’aide du man.
-4 Exercice 3 : les tubes
-Quelle est la diff´erence entre tee et cat ?
-Que font les commandes suivantes :LP LPW - Syst`emes/Services - Unix TP 02 : Services, processus signaux M. Le Cocq . 2024
-3 Exercice 2 : Arrˆet d’un processus
-Ecrivez deux script shell contenant des boucles affichant la date.
-fichier date.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’date ’; date +%T; done
-fichier date-toto.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
-- Lancer le 1er scripts. Le mettre en arri`ere plan (CTRL-Z).
-- Lancer le 2eme scripts. Le mettre en arri`ere plan (CTRL-Z).
-- A l’aide des commandes jobs fg et CTRL-C, arrˆeter les 2 horloges.
-- Mˆeme question en utilisant les commandes ps et kill (avec un PID).
-- Expliquer les scripts `a l’aide du man.
-4 Exercice 3 : les tubes
-Quelle est la diff´erence entre tee et cat ?
-Que font les commandes suivantes :
-$ ls | cat
-$ ls -l | cat > liste
-$ ls -l | tee liste
-$ ls -l | tee liste | wc -l
-5 Journal syst`eme rsyslog
-- Le service rsyslog est-il lanc´e sur votre syst`eme ? Quel est le PID du d´emon ?
-- Le principal fichier de configuration de rsyslog est /etc/rsyslog.conf. Dans quel fichier
-rsyslog ´ecrit-il les messages issus des services standards ? Et la plupart des autres messages ?
-V´erifier le contenu de ces fichiers.
-- A quoi sert le se
-$ ls | cat
-$ ls -l | cat > liste
-$ ls -l | tee liste
-$ ls -l | tee liste | wc -l
-5 Journal syst`eme rsyslog
-- Le service rsyslog est-il lanc´e sur votre syst`eme ? Quel est le PID du d´emon ?
-- Le principal fichier de configuration de rsyslog est /etc/rsyslog.conf. Dans quel fichier
-rsyslog ´ecrit-il les messages issus des services standards ? Et la plupart des autres messages ?
-V´erifier le contenu de ces fichiers.
-- A quoi sert le se
+    931 pts/0    00:00:00 date.sh
     936 pts/0    00:00:00 sleep
     937 pts/0    00:00:00 ps
   root@serveur-correction:/# kill
