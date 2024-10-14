@@ -96,7 +96,7 @@ La procédure pour sécuriser le machine via ssh pour root par clef seulement :
     ```
 ### 2.2
 - L'option permettant d'afficher le PPID d'un processus est ppid : ps -eo pid,ppid ...
-- La commande pour afficher dans lo'rdre les PPID est
+- La commande pour afficher dans l'ordre les PPID est
   ```bash
     root@serveur-correction:~# ps -eo pid,ppid --sort=ppid
         PID    PPID
@@ -141,9 +141,114 @@ systemd─┬─cron
   324 root      20   0   32948   8528   7436 S   0,0   0,1   0:00.32 systemd-journal               
 ```
 Il correspond au systeme de journalisation
+- Commanes interactives :
+  - Changer la couleur : C'est avec la touche z qu'on change de couleur.
+  - Mettre en évidence la colonne de trie : C'est avec la touche x.
+  - Changer la colonne de trie :
+    Installation de htop : apt-get install htop
+  - htop :
+    - Avantages :  
+      - Cette commande affiche les processus actifs avec une meilleur interface ( couleurs ... ) et organisation ( informations mieux détaillées ).
+      - Elle apporte une meilleure navigation et permet des actions groupées sur plusieurs processus.
+      - Elle simplifie les actions sur les processus
+    - Inconvénients :
+      - + De consommation de ressources CPU.
+      - Ne fonctionne pas dans tous les environnements.
+      - Moins d'informations affichées. 
+
+## Exercice 3
+
+### 3.1
+
+Création du fichier date.sh : 
+  - cat>date.sh
+  - coller : #!/bin/sh
+while true; do sleep 1; echo -n ’date ’; date +%T; done
+
+Création du fichier date-toto.sh : 
+- cat>date-toto.sh
+- #!/bin/sh
+while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
 
 
+- date.sh :
+  - Droit du fichier :
+    ```bash
+      root@serveur-correction:/# chmod +x date.sh
+      ```  
+  - ```bash
+    root@serveur-correction:/# ^C
+    root@serveur-correction:/# ./date.sh
+    ’date ’13:51:35
+    ’date ’13:51:36
+    ’date ’13:51:37
+    ```
+- ```bash
+    ^Z
+    [1]+  Stoppé                 ./date.sh
+  ```
+- ```bash
+    root@serveur-correction:/# jobs
+    [1]+  Stoppé                 ./date.sh
+  ```
+  - ```bash
+    root@serveur-correction:/# fg
+    ./date.sh
+    ’date ’13:51:51
+    ’date ’13:51:52
+    ’date ’13:51:53
+    ’date ’13:51:54
+    ’date ’13:51:55
+    ’date ’13:51:56
+    ^C
+  ```
 
+
+Changement de fichier date-toto.sh :
+- ```bash
+  root@serveur-correction:/# ./date-toto.sh
+  ’toto ’date: opérande supplémentaire « ago’ »
+  Saisissez « date --help » pour plus d'informations.
+  ^Z
+  [1]+  Stoppé                 ./date-toto.sh
+  ```
+- ```bash
+  root@serveur-correction:/# jobs
+  [1]+  Stoppé                 ./date-toto.sh
+   ```
+- ```bash
+  root@serveur-correction:/# fg
+  ./date-toto.sh
+  ’toto ’date: opérande supplémentaire « ago’ »  
+  Saisissez « date --help » pour plus d'informations.
+  ’toto ’date: opérande supplémentaire « ago’ »
+  Saisissez « date --help » pour plus d'informations.
+  ’toto ’date: opérande supplémentaire « ago’ »
+  Saisissez « date --help » pour plus d'informations.
+  ’toto ’date: opérande supplémentaire « ago’ »
+  Saisissez « date --help » pour plus d'informations.
+  ^C
+  ```
+- ```bash
+  root@serveur-correction:/# ./date.sh
+  ’date ’14:03:45
+  ’date ’14:03:46
+  ^Z
+  [2]+  Stoppé                 ./date.sh
+  root@serveur-correction:/# ps
+    PID TTY          TIME CMD
+    653 pts/0    00:00:00 bash
+    923 pts/0    00:00:00 date.sh
+    924 pts/0    00:00:00 sleep
+    931 pts/0    00:00:00 date.sh
+    936 pts/0    00:00:00 sleep
+    937 pts/0    00:00:00 ps
+  root@serveur-correction:/# kill
+  kill : utilisation :kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... ou kill -l [sigspec]
+  root@serveur-correction:/# kill 923
+  ```
+
+  
 
 
 
