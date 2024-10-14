@@ -248,7 +248,12 @@ Changement de fichier date-toto.sh :
   root@serveur-correction:/# kill 923
   ```
 
-  
+- #!/bin/sh
+while true; do sleep 1; echo -n ’date ’; date +%T; done
+Permet d'afficher l'heure actuelle et de mettre a jour chaques secondes.
+
+- while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
+- Pareil que le script précédent mais ajoute "toto" devant.
 
 
 
