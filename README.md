@@ -35,7 +35,33 @@ Pour generer une clé :
   - Demande la phrase de passe. => entrée
   - Confirmation phrase de passe. => entrée
   - Resultat :
-    ```bash
+    ```bashLP LPW - Syst`emes/Services - Unix TP 02 : Services, processus signaux M. Le Cocq . 2024
+3 Exercice 2 : Arrˆet d’un processus
+Ecrivez deux script shell contenant des boucles affichant la date.
+fichier date.sh
+#!/bin/sh
+while true; do sleep 1; echo -n ’date ’; date +%T; done
+fichier date-toto.sh
+#!/bin/sh
+while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
+- Lancer le 1er scripts. Le mettre en arri`ere plan (CTRL-Z).
+- Lancer le 2eme scripts. Le mettre en arri`ere plan (CTRL-Z).
+- A l’aide des commandes jobs fg et CTRL-C, arrˆeter les 2 horloges.
+- Mˆeme question en utilisant les commandes ps et kill (avec un PID).
+- Expliquer les scripts `a l’aide du man.
+4 Exercice 3 : les tubes
+Quelle est la diff´erence entre tee et cat ?
+Que font les commandes suivantes :
+$ ls | cat
+$ ls -l | cat > liste
+$ ls -l | tee liste
+$ ls -l | tee liste | wc -l
+5 Journal syst`eme rsyslog
+- Le service rsyslog est-il lanc´e sur votre syst`eme ? Quel est le PID du d´emon ?
+- Le principal fichier de configuration de rsyslog est /etc/rsyslog.conf. Dans quel fichier
+rsyslog ´ecrit-il les messages issus des services standards ? Et la plupart des autres messages ?
+V´erifier le contenu de ces fichiers.
+- A quoi sert le se
     Your identification has been saved in /root/.ssh/id_rsa
     Your public key has been saved in /root/.ssh/id_rsa.pub
     The key fingerprint is:
@@ -207,10 +233,11 @@ while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; d
 Changement de fichier date-toto.sh :
 - ```bash
   root@serveur-correction:/# ./date-toto.sh
-  ’toto ’date: opérande supplémentaire « ago’ »
-  Saisissez « date --help » pour plus d'informations.
+  toto 11:29:51
+  toto 11:29:52
+  toto 11:29:54
   ^Z
-  [1]+  Stoppé                 ./date-toto.sh
+  [2]+  Stoppé                 ./date-toto.sh
   ```
 - ```bash
   root@serveur-correction:/# jobs
@@ -219,14 +246,10 @@ Changement de fichier date-toto.sh :
 - ```bash
   root@serveur-correction:/# fg
   ./date-toto.sh
-  ’toto ’date: opérande supplémentaire « ago’ »  
-  Saisissez « date --help » pour plus d'informations.
-  ’toto ’date: opérande supplémentaire « ago’ »
-  Saisissez « date --help » pour plus d'informations.
-  ’toto ’date: opérande supplémentaire « ago’ »
-  Saisissez « date --help » pour plus d'informations.
-  ’toto ’date: opérande supplémentaire « ago’ »
-  Saisissez « date --help » pour plus d'informations.
+  toto 11:31:44
+  toto 11:31:45
+  toto 11:31:46
+  toto 11:31:47
   ^C
   ```
 - ```bash
@@ -247,15 +270,85 @@ Changement de fichier date-toto.sh :
   kill : utilisation :kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... ou kill -l [sigspec]
   root@serveur-correction:/# kill 923
   ```
+  - ```bash
+    root@serveur-correction:/# ps
+    PID TTY          TIME CMD
+    669 pts/0    00:00:00 bash
+    711 pts/0    00:00:00 date-toto.sh
+    748 pts/0    00:00:00 sleep
+    766 pts/0    00:00:00 ps
+    root@serveur-correction:/# kill -9 711
+    root@serveur-correction:/# ps
+    PID TTY          TIME CMD
+    669 pts/0    00:00:00 bash
+    767 pts/0    00:00:00 ps
+    [1]+  Processus arrêté      ./date-toto.sh
+  ```
 
 - #!/bin/sh
 while true; do sleep 1; echo -n ’date ’; date +%T; done
-Permet d'afficher l'heure actuelle et de mettre a jour chaques secondes.
+Permet d'afficher date suivi de l'heure actuelle et de mettre a jour chaques secondes.
 
 - while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
-- Pareil que le script précédent mais ajoute "toto" devant.
+- Permet d'afficher toto suivi de l'heure qu'il était il y a 5 heures et met à jour chaques secondes.
 
+## 4 Exercice 3
 
+- La différence entre tee et cat est que cat permet d'afficher le contenu d'un fichier alors que tee permet d'afficher le resultat d'une commande et enregistre en même temps dans le fichier.
+- Les commandes :
+  - ls | cat : Permet d'afficher la liste de tout ce qu'il y a dans le repertoire actuel.
+    ```bash
+    root@serveur-correction:/# ls | cat
+    bin
+    boot
+    date.sh
+    date-toto.sh
+    ...
+    ```
+  - ls -l | cat > liste : la première partie va lister tout ce qu'il y a dans le repertoire actuel avec plus de détails. La deuxieme partie va créer un fichier liste et tout enregistrer à l'interieur.
+  - ls -l | tee liste : La première partie est comme la première partie précédente. La deuxieme partie va afficher le tout et l'écrire aussi dans le fichier.
+    ```bash
+    root@serveur-correction:/# ls -l | tee liste
+    total 72
+    lrwxrwxrwx   1 root root     7  5 oct.   2023 bin -> usr/bin
+    drwxr-xr-x   3 root root  4096  5 oct.   2023 boot
+    -rwxr-xr-x   1 root root    70 14 oct.  13:41 date.sh
+    -rwxr-xr-x   1 root root    86 14 oct.  16:29 date-toto.sh
+    ...
+      ```
+  - ls -l | tee liste | wc -l : Pareil concernant les 2 premières parties. La troisième partie compte le nombre de ligne concernant ce que la commande recoit venant de "tee".
+    ```bash
+    root@serveur-correction:/# ls -l | tee liste | wc -l 
+    30
+    ```
+## 5
+### 5.1
+  ```bash
+root@serveur-correction:/# service rsyslog status
+● rsyslog.service - System Logging Service
+     Loaded: loaded (/lib/systemd/system/rsyslog.service; enabled; preset: enab>
+     Active: active (running) since Mon 2024-10-14 17:03:01 CEST; 1min 25s ago
+TriggeredBy: ● syslog.socket
+       Docs: man:rsyslogd(8)
+             man:rsyslog.conf(5)
+             https://www.rsyslog.com/doc/
+   Main PID: 920 (rsyslogd)
+      Tasks: 4 (limit: 11878)
+     Memory: 3.1M
+        CPU: 17ms
+     CGroup: /system.slice/rsyslog.service
+             └─920 /usr/sbin/rsyslogd -n -iNONE
+
+```
+
+- Le pid du demon est 920
+
+  ```bash
+  root@serveur-correction:/# pidof rsyslogd
+  920
+  ```
+
+  fvd
 
 
 
