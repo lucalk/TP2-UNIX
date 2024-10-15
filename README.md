@@ -17,7 +17,8 @@ Pour me connecter en root :
 
 Source : man sshd_config.
 
-L'élément de la configuration ssh que j'ai changé est : PermitRootLogin.
+L'élément de la configuration ssh que j'ai changé est : PermitRootLogin yes.
+
 Il existe plusieurs options : 
   - yes : Permet au root de se connecter par ssh.
   - prohibit-password (without-password ) : Désactive l'authentification par mot de passe donc impose l'authentification par clé.
