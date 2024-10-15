@@ -36,33 +36,7 @@ Pour generer une clé :
   - Demande la phrase de passe. => entrée
   - Confirmation phrase de passe. => entrée
   - Resultat :
-    ```bashLP LPW - Syst`emes/Services - Unix TP 02 : Services, processus signaux M. Le Cocq . 2024
-3 Exercice 2 : Arrˆet d’un processus
-Ecrivez deux script shell contenant des boucles affichant la date.
-fichier date.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’date ’; date +%T; done
-fichier date-toto.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
-- Lancer le 1er scripts. Le mettre en arri`ere plan (CTRL-Z).
-- Lancer le 2eme scripts. Le mettre en arri`ere plan (CTRL-Z).
-- A l’aide des commandes jobs fg et CTRL-C, arrˆeter les 2 horloges.
-- Mˆeme question en utilisant les commandes ps et kill (avec un PID).
-- Expliquer les scripts `a l’aide du man.
-4 Exercice 3 : les tubes
-Quelle est la diff´erence entre tee et cat ?
-Que font les commandes suivantes :
-$ ls | cat
-$ ls -l | cat > liste
-$ ls -l | tee liste
-$ ls -l | tee liste | wc -l
-5 Journal syst`eme rsyslog
-- Le service rsyslog est-il lanc´e sur votre syst`eme ? Quel est le PID du d´emon ?
-- Le principal fichier de configuration de rsyslog est /etc/rsyslog.conf. Dans quel fichier
-rsyslog ´ecrit-il les messages issus des services standards ? Et la plupart des autres messages ?
-V´erifier le contenu de ces fichiers.
-- A quoi sert le se
+    ```bash
     Your identification has been saved in /root/.ssh/id_rsa
     Your public key has been saved in /root/.ssh/id_rsa.pub
     The key fingerprint is:
@@ -391,13 +365,38 @@ root@serveur-correction:/var/log# dmesg | grep -i "CPU"
   [    2.574826] e1000 0000:00:03.0 eth0: (PCI:33MHz:32-bit) 08:00:27:22:1d:fa
   [    2.574832] e1000 0000:00:03.0 eth0: Intel(R) PRO/1000 Network Connection
   [    2.655814] e1000 0000:00:03.0 enp0s3: renamed from eth0
-```
+  ```
+# IMPORTANT
 
+range ca !!!!!!!!!!!!
 
-
-
-
-
+LPW - Syst`emes/Services - Unix TP 02 : Services, processus signaux M. Le Cocq . 2024
+3 Exercice 2 : Arrˆet d’un processus
+Ecrivez deux script shell contenant des boucles affichant la date.
+fichier date.sh
+#!/bin/sh
+while true; do sleep 1; echo -n ’date ’; date +%T; done
+fichier date-toto.sh
+#!/bin/sh
+while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
+- Lancer le 1er scripts. Le mettre en arri`ere plan (CTRL-Z).
+- Lancer le 2eme scripts. Le mettre en arri`ere plan (CTRL-Z).
+- A l’aide des commandes jobs fg et CTRL-C, arrˆeter les 2 horloges.
+- Mˆeme question en utilisant les commandes ps et kill (avec un PID).
+- Expliquer les scripts `a l’aide du man.
+4 Exercice 3 : les tubes
+Quelle est la diff´erence entre tee et cat ?
+Que font les commandes suivantes :
+$ ls | cat
+$ ls -l | cat > liste
+$ ls -l | tee liste
+$ ls -l | tee liste | wc -l
+5 Journal syst`eme rsyslog
+- Le service rsyslog est-il lanc´e sur votre syst`eme ? Quel est le PID du d´emon ?
+- Le principal fichier de configuration de rsyslog est /etc/rsyslog.conf. Dans quel fichier
+rsyslog ´ecrit-il les messages issus des services standards ? Et la plupart des autres messages ?
+V´erifier le contenu de ces fichiers.
+- A quoi sert le se
 
     
 
