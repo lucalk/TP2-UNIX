@@ -3,10 +3,12 @@
 ## Source : 
 - https://www.hostinger.fr/tutoriels
 - https://www.delafond.org/traducmanfr/man/man5/sshd_config.5.html
+- man
+- chatgpt
 
-## 1
+## 1 Secure Shell : SSH
 ### 1.1
-Pour me connecter en root : 
+- Pour me connecter en root : 
   
   - Lancement de la VM : Vbox LicenceProPreInstalled-2024
     - Connexion : login et password = root
@@ -20,9 +22,9 @@ Pour me connecter en root :
 
 Source : man sshd_config.
 
-L'élément de la configuration ssh que j'ai changé est : PermitRootLogin yes.
+- L'élément de la configuration ssh que j'ai changé est : PermitRootLogin yes.
 
-Il existe plusieurs options : 
+- Il existe plusieurs options : 
   - yes : Permet au root de se connecter par ssh.
   - prohibit-password (without-password ) : Désactive l'authentification par mot de passe donc impose l'authentification par clé.
     - Permet de se connecter en tant que root et empêche les attaques par force brute.
@@ -33,7 +35,7 @@ Il existe plusieurs options :
 
 ### 1.2
 
-Pour generer une clé : 
+Pour générer une clé : 
   - Commande "ssh-keygen" : Permet de generer une clé.
   - Demande l'emplacement pour stocker la clé. => entrée
   - Demande la phrase de passe. => entrée
@@ -74,7 +76,7 @@ Pour generer une clé :
 - Déconnexion : exit
 
 ### 1.4
-Connexion : ssh -i id_rsa.pub root@10.20.0.142 œ
+Connexion : ssh -i id_rsa.pub root@10.20.0.142 
 
 ### 1.5
 Revoir dans tléchargement ce qui était là !!!!
@@ -85,7 +87,7 @@ La procédure pour sécuriser le machine via ssh pour root par clef seulement :
   - #PubkeyAuthentication yes => PubkeyAuthentication yes
   - PermitRootLogin yes => PermitRootLogin prohibit-password
 
-## Exercice 2
+## 2 Processus
 
 ### 2.1
 - TIME : correspond au temps utilisé par le processus
@@ -160,7 +162,7 @@ Il correspond au systeme de journalisation
       - Ne fonctionne pas dans tous les environnements.
       - Moins d'informations affichées. 
 
-## Exercice 3
+## 3 Exercice 2 : Arrêt d’un processus
 
 ### 3.1
 
@@ -187,14 +189,14 @@ while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; d
     ’date ’13:51:36
     ’date ’13:51:37
     ```
-- ```bash
+  - ```bash
     ^Z
     [1]+  Stoppé                 ./date.sh
-  ```
-- ```bash
+    ```
+  - ```bash
     root@serveur-correction:/# jobs
     [1]+  Stoppé                 ./date.sh
-  ```
+    ```
   - ```bash
     root@serveur-correction:/# fg
     ./date.sh
@@ -204,39 +206,38 @@ while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; d
     ’date ’13:51:54
     ’date ’13:51:55
     ’date ’13:51:56
-    ^C
-  ```
+    ```
 
 
 Changement de fichier date-toto.sh :
-- ```bash
-  root@serveur-correction:/# ./date-toto.sh
-  toto 11:29:51
-  toto 11:29:52
-  toto 11:29:54
-  ^Z
-  [2]+  Stoppé                 ./date-toto.sh
-  ```
-- ```bash
-  root@serveur-correction:/# jobs
-  [1]+  Stoppé                 ./date-toto.sh
-   ```
-- ```bash
-  root@serveur-correction:/# fg
-  ./date-toto.sh
-  toto 11:31:44
-  toto 11:31:45
-  toto 11:31:46
-  toto 11:31:47
-  ^C
-  ```
-- ```bash
-  root@serveur-correction:/# ./date.sh
-  ’date ’14:03:45
-  ’date ’14:03:46
-  ^Z
-  [2]+  Stoppé                 ./date.sh
-  root@serveur-correction:/# ps
+  - ```bash
+    root@serveur-correction:/# ./date-toto.sh
+    toto 11:29:51
+    toto 11:29:52
+    toto 11:29:54
+    ^Z
+    [2]+  Stoppé                 ./date-toto.sh
+    ```
+  - ```bash
+    root@serveur-correction:/# jobs
+    [1]+  Stoppé                 ./date-toto.sh
+     ```
+  - ```bash
+    root@serveur-correction:/# fg
+    ./date-toto.sh
+    toto 11:31:44
+    toto 11:31:45
+    toto 11:31:46
+    toto 11:31:47
+    ^C
+    ```
+  - ```bash
+    root@serveur-correction:/# ./date.sh
+    ’date ’14:03:45
+    ’date ’14:03:46
+    ^Z
+    [2]+  Stoppé                 ./date.sh
+    root@serveur-correction:/# ps
     PID TTY          TIME CMD
     653 pts/0    00:00:00 bash
     923 pts/0    00:00:00 date.sh
@@ -244,10 +245,10 @@ Changement de fichier date-toto.sh :
     931 pts/0    00:00:00 date.sh
     936 pts/0    00:00:00 sleep
     937 pts/0    00:00:00 ps
-  root@serveur-correction:/# kill
-  kill : utilisation :kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... ou kill -l [sigspec]
-  root@serveur-correction:/# kill 923
-  ```
+    root@serveur-correction:/# kill
+    kill : utilisation :kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... ou kill -l [sigspec]
+    root@serveur-correction:/# kill 923
+    ```
   - ```bash
     root@serveur-correction:/# ps
     PID TTY          TIME CMD
@@ -261,16 +262,20 @@ Changement de fichier date-toto.sh :
     669 pts/0    00:00:00 bash
     767 pts/0    00:00:00 ps
     [1]+  Processus arrêté      ./date-toto.sh
-  ```
+    ```
 
+```bash
 - #!/bin/sh
 while true; do sleep 1; echo -n ’date ’; date +%T; done
-Permet d'afficher date suivi de l'heure actuelle et de mettre a jour chaques secondes.
+```
+- Permet d'afficher date suivi de l'heure actuelle et de mettre a jour chaques secondes.
 
-- while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
+```bash
+while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
+```
 - Permet d'afficher toto suivi de l'heure qu'il était il y a 5 heures et met à jour chaques secondes.
 
-## 4 Exercice 3
+## 4 Exercice 3 : les tubes
 
 - La différence entre tee et cat est que cat permet d'afficher le contenu d'un fichier alors que tee permet d'afficher le resultat d'une commande et enregistre en même temps dans le fichier.
 - Les commandes :
@@ -299,14 +304,15 @@ Permet d'afficher date suivi de l'heure actuelle et de mettre a jour chaques sec
     root@serveur-correction:/# ls -l | tee liste | wc -l 
     30
     ```
-## 5
+## 5 Journal syst`eme rsyslog
 ### 5.1
+- Oui, le service rsyslog est lancé sur mon système.
   ```bash
-root@serveur-correction:/# service rsyslog status
-● rsyslog.service - System Logging Service
+  root@serveur-correction:/# service rsyslog status
+  ● rsyslog.service - System Logging Service
      Loaded: loaded (/lib/systemd/system/rsyslog.service; enabled; preset: enab>
      Active: active (running) since Mon 2024-10-14 17:03:01 CEST; 1min 25s ago
-TriggeredBy: ● syslog.socket
+  TriggeredBy: ● syslog.socket
        Docs: man:rsyslogd(8)
              man:rsyslog.conf(5)
              https://www.rsyslog.com/doc/
@@ -316,17 +322,16 @@ TriggeredBy: ● syslog.socket
         CPU: 17ms
      CGroup: /system.slice/rsyslog.service
              └─920 /usr/sbin/rsyslogd -n -iNONE
+  ```
 
-```
-
-- Le pid du demon est 920
-
+- Le PID du démon est 920.
   ```bash
   root@serveur-correction:/# pidof rsyslogd
   920
   ```
+  
 ### 5.2
-- rsyslog ecrit les messages dans :
+- rsyslog ecrit les messages issus des services standards dans :
   ```bash
   # Log commonly used facilities to their own log file
   #
@@ -351,55 +356,25 @@ Le service cron sert à planifier des tâches automatiques.
       2024-10-15T13:47:31.436792+02:00 serveur-correction cron[753]: (CRON) INFO (pidfile fd = 3)
       2024-10-15T13:47:31.437677+02:00 serveur-correction cron[753]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
   ```
+  
 ### 5.5
-Ce fichier concerne la configuration pour le service logrotate.
+Ce fichier concerne les paramètres de configuration principale du service logrotate.
 
 ### 5.6
 - 
-```
-root@serveur-correction:/var/log# dmesg | grep -i "CPU"
-```
+- Le modèle de processus linux detecté sur la machine est 12th Gen Intel(R) Core(TM) i7-12700 :
 ```bash
+root@serveur-correction:/var/log# dmesg | grep -i "CPU"
 [    0.195720] smpboot: CPU0: 12th Gen Intel(R) Core(TM) i7-12700 (family: 0x6, model: 0x97, stepping: 0x2)
 ```
-- rf
+- Le modèle de carte réseau est Intel(R) PRO/1000 Network Connection :
   ```bash
   root@serveur-correction:/var/log# dmesg | grep -i "eth"
   [    2.574826] e1000 0000:00:03.0 eth0: (PCI:33MHz:32-bit) 08:00:27:22:1d:fa
   [    2.574832] e1000 0000:00:03.0 eth0: Intel(R) PRO/1000 Network Connection
   [    2.655814] e1000 0000:00:03.0 enp0s3: renamed from eth0
   ```
-# IMPORTANT
 
-range ca !!!!!!!!!!!!
-
-LPW - Syst`emes/Services - Unix TP 02 : Services, processus signaux M. Le Cocq . 2024
-3 Exercice 2 : Arrˆet d’un processus
-Ecrivez deux script shell contenant des boucles affichant la date.
-fichier date.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’date ’; date +%T; done
-fichier date-toto.sh
-#!/bin/sh
-while true; do sleep 1; echo -n ’toto ’; date --date ’5 hour ago’ +%T; done
-- Lancer le 1er scripts. Le mettre en arri`ere plan (CTRL-Z).
-- Lancer le 2eme scripts. Le mettre en arri`ere plan (CTRL-Z).
-- A l’aide des commandes jobs fg et CTRL-C, arrˆeter les 2 horloges.
-- Mˆeme question en utilisant les commandes ps et kill (avec un PID).
-- Expliquer les scripts `a l’aide du man.
-4 Exercice 3 : les tubes
-Quelle est la diff´erence entre tee et cat ?
-Que font les commandes suivantes :
-$ ls | cat
-$ ls -l | cat > liste
-$ ls -l | tee liste
-$ ls -l | tee liste | wc -l
-5 Journal syst`eme rsyslog
-- Le service rsyslog est-il lanc´e sur votre syst`eme ? Quel est le PID du d´emon ?
-- Le principal fichier de configuration de rsyslog est /etc/rsyslog.conf. Dans quel fichier
-rsyslog ´ecrit-il les messages issus des services standards ? Et la plupart des autres messages ?
-V´erifier le contenu de ces fichiers.
-- A quoi sert le se
 
     
 
