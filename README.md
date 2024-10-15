@@ -347,9 +347,50 @@ TriggeredBy: ● syslog.socket
   root@serveur-correction:/# pidof rsyslogd
   920
   ```
+### 5.2
+- rsyslog ecrit les messages dans :
+  ```bash
+  # Log commonly used facilities to their own log file
+  #
+  auth,authpriv.*                 /var/log/auth.log
+  cron.*                          -/var/log/cron.log
+  kern.*                          -/var/log/kern.log
+  mail.*                          -/var/log/mail.log
+  ```
 
-  fvd
+### 5.3
+Le service cron sert à planifier des tâches automatiques.
 
+### 5.4
+- La commande tail -f permet d'afficher les dernieres lignes d'un fichier en temps réel.
+- 1. Redémarrer le service cron : systemctl restart cron
+  2. Les dernieres lignes du fichier se mettent à jour et donne des informations concernant le status du service cron
+     ```bash
+     2024-10-15T13:47:31.403481+02:00 serveur-correction systemd[1]: Stopping cron.service - Regular background    program processing daemon...
+      2024-10-15T13:47:31.404395+02:00 serveur-correction systemd[1]: cron.service: Deactivated successfully.
+      2024-10-15T13:47:31.404984+02:00 serveur-correction systemd[1]: Stopped cron.service - Regular background program processing daemon.
+      2024-10-15T13:47:31.433076+02:00 serveur-correction systemd[1]: Started cron.service - Regular background program processing daemon.
+      2024-10-15T13:47:31.436792+02:00 serveur-correction cron[753]: (CRON) INFO (pidfile fd = 3)
+      2024-10-15T13:47:31.437677+02:00 serveur-correction cron[753]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
+  ```
+### 5.5
+Ce fichier concerne la configuration pour le service logrotate.
+
+### 5.6
+- 
+```
+root@serveur-correction:/var/log# dmesg | grep -i "CPU"
+```
+```bash
+[    0.195720] smpboot: CPU0: 12th Gen Intel(R) Core(TM) i7-12700 (family: 0x6, model: 0x97, stepping: 0x2)
+```
+- rf
+  ```bash
+  root@serveur-correction:/var/log# dmesg | grep -i "eth"
+  [    2.574826] e1000 0000:00:03.0 eth0: (PCI:33MHz:32-bit) 08:00:27:22:1d:fa
+  [    2.574832] e1000 0000:00:03.0 eth0: Intel(R) PRO/1000 Network Connection
+  [    2.655814] e1000 0000:00:03.0 enp0s3: renamed from eth0
+```
 
 
 
