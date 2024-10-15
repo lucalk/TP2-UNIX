@@ -4,16 +4,19 @@
 - https://www.hostinger.fr/tutoriels
 - https://www.delafond.org/traducmanfr/man/man5/sshd_config.5.html
 
-## Exercice 1
+## 1
 ### 1.1
 Pour me connecter en root : 
-  Lancement de la VM : Vbox LicenceProPreInstalled-2024
+  
+  - Lancement de la VM : Vbox LicenceProPreInstalled-2024
     - Connexion : login et password = root
-  Sur la VM : 
+
+  - Sur la VM : 
     - sudo apt update
     - sudo systemctl restart ssh
-   Sur la machine :  
-    - Tester la connexion : ssh root@10.20.0.142 ou la commande "ip a" pour voir l'ip.
+  
+   - Sur la machine :
+     - Tester la connexion : ssh root@10.20.0.142 ou la commande "ip a" pour voir l'ip.
 
 Source : man sshd_config.
 
